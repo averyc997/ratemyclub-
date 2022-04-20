@@ -7,8 +7,8 @@ h1 {
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 3.25rem;
-  line-height: 3.75rem;
+  font-size: 2.75rem;
+  line-height: 3.25rem;
 }
 
 h2 {
@@ -30,13 +30,13 @@ h3 {
 nav {
   display: flex;
   align-items: center;
-  padding: 1rem 5%;
+  padding: 0.75rem 5%;
   background: $white;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 
   img {
-    width: 10rem;
-    margin-right: 2rem;
+    width: 8rem;
+    margin-right: 0.5rem;
     cursor: pointer;
   }
 
@@ -150,8 +150,9 @@ nav {
     width: auto;
   }
 }
-.categories{
-  .intro-cntnr{
+
+.categories {
+  .intro-cntnr {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,7 +164,7 @@ nav {
       flex-direction: column;
     }
 
-    div{
+    div {
       width: 17rem;
       height: 14rem;
       margin: 1rem 2rem;
@@ -174,22 +175,26 @@ nav {
       border-radius: 5px;
       justify-content: center;
       align-items: center;
-      a{
+
+      a {
         text-decoration: none;
-        img{
+
+        img {
           width: auto;
           height: 4rem;
           object-fit: cover;
           margin-bottom: 1rem
         }
-        strong{
-          font: 700 1.5rem/2rem 'Roboto';
+
+        strong {
+          font: 700 1.5rem/2rem 'Roboto', sans-serif;
           color: $black;
         }
       }
     }
   }
 }
+
 footer {
   background-color: $darkblue;
   color: $white;
@@ -197,17 +202,52 @@ footer {
   justify-content: space-between;
   padding: 1rem 5%;
 
-  > *{
+  >* {
     margin: 1rem;
   }
+
   ul {
     li {
       display: inline-block;
       margin-left: 1rem;
+
       a {
         color: $white;
         font-weight: 700;
       }
+    }
+  }
+}
+
+#create{
+  background-image: url('./img/background.png');
+  background-repeat: repeat-y;
+  background-size: cover;
+  min-height:90vh;
+  .intro{
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+  .create-form{
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+  h2{
+    font-size: 2rem;
+  }
+  label, strong{
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .socials{
+    display: flex;
+    align-items: center;
+    i{
+      font-size: 1.5rem;
+      width: 2.5rem;
+      margin-right: 0.1rem;
+
     }
   }
 }
