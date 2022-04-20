@@ -9,7 +9,7 @@ const CreateClub = () => {
       <main id="create" className="py-4">
         <section className="container">
           <div className="intro">
-            <h1>Create your club!</h1>
+            <h1 className="mt-4">Create your club!</h1>
             <p>
               Are you an executive member of a UNC club? Do you want to promote
               your club to reach it’s highest potential? Looking for more
@@ -100,6 +100,7 @@ const CreateClub = () => {
                 ></textarea>
               </div>
             </div>
+            <button className="btn btn-primary my-3">Submit Form</button>
             {/*</form>*/}
           </section>
         </section>

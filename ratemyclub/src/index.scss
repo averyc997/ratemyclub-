@@ -33,7 +33,6 @@ nav {
   padding: 0.75rem 5%;
   background: $white;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-
   img {
     width: 8rem;
     margin-right: 0.5rem;
@@ -109,6 +108,7 @@ nav {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/belltower.png');
   width: 100%;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
   background-position: center;
   height: 70vh;
@@ -221,15 +221,17 @@ footer {
 
 #create{
   background-image: url('./img/background.png');
+  margin-top: 8px;
   background-repeat: repeat-y;
   background-size: cover;
   min-height:90vh;
+  
   .intro{
-    max-width: 50rem;
+    max-width: 55rem;
     margin: 0 auto;
   }
   .create-form{
-    max-width: 50rem;
+    max-width: 55rem;
     margin: 0 auto;
   }
   h2{

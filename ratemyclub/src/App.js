@@ -3,13 +3,19 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './pages/index';
 import CreateClub from './pages/createclub';
+import Club from './pages/club';
+import Error from './pages/error';
+
 import Footer from './components/Footer';
+
 function App() {
   return (
     <Router>
         <Routes>
             <Route path="/" element= { <Home />} />
             <Route path="/create" element= { <CreateClub />} />
+            <Route path="/club/:id" element = {<Club />}/>
+            <Route path="*" element= { <Error />} />
         </Routes>
         <Footer />
     </Router>
