@@ -24,6 +24,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const database = firebase.database().ref().child('reviews');
+
+export const Push = () => {
+    database.ref("review").set({
+      stars : stars,
+      tags : tags,
+      descrip : descrip,
+      likes : likes,
+      dislikes : dislikes,
+    }).catch(alert);
+}
 
 export function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
