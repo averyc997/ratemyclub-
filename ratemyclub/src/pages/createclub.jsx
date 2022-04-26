@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 const CreateClub = () => {
   return (
     <>
-      <Navbar />
       <main id="create" className="py-4">
         <section className="container">
           <div className="intro">

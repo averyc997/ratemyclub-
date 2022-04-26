@@ -1,8 +1,6 @@
-import React from "react";
-import Navbar from "../components/Navbar";
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 import { Dialog } from "@material-ui/core";
-import "./Modal.scss";
 
 const Club = () => {
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -11,7 +9,6 @@ const Club = () => {
   };
   return (
     <>
-      <Navbar />
       <main id="club" className="py-4">
         <section className="container">
           <div className="row club">

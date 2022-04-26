@@ -107,7 +107,50 @@ const Navbar = () => {
         </a>
         <ul>
           <li>
-            <a href="">Categories</a>
+            <div class="btn-group">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                id="defaultDropdown"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="true"
+                aria-expanded="false"
+              >
+                Categories
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Academic
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Cultural
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Gaming
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Greek Life
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Service
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Sports
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
           <li>
             <a href="./create">Club Organizer?</a>
