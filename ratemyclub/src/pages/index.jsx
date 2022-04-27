@@ -1,10 +1,24 @@
-import React, {useState} from "react";
+import React, {useState , useEffect} from "react";
 import Searchbar from "../components/Searchbar";
-import ClubData from "../Data.json";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const API_URL='https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json';
 
 const Home = () => {
   const history = useNavigate();
+  const [posts, setPosts] = useState([]);
+
+  // Define the function that fetches the data from API
+  const fetchData = async () => {
+    const { data } = await axios.get(API_URL);
+    setPosts(data);
+  };
+
+  // Trigger the fetchData after the initial render by using the useEffect hook
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -12,7 +26,7 @@ const Home = () => {
       <section className="hero">
         <img src={"../img/logo-hero.png"} alt="RMC Logo" />
         <h3>UNC's unofficial club review site!</h3>
-        <Searchbar placeholder="Search for a club..." data={ClubData} />
+       <Searchbar placeholder = "Search for clubs..." data={posts} />
       </section>
       <section className="container">
         <h2 className="text-center pt-4 my-4">What is Rate My Club?</h2>

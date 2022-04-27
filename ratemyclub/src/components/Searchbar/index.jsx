@@ -51,6 +51,7 @@ const Searchbar = ({ placeholder, data }) => {
           />
         </div>
       </div>
+
       {filteredData.length != 0 && (
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
@@ -75,5 +76,21 @@ export default Searchbar;
       aria-describedby="button-addon2"
       className="form-control border-0 bg-light"
     />
-  </div>*/
+  </div>
+  
+  
+        <div className="wrapper">
+      {data.length > 0 ? (
+        <div className="content">
+          {data.map((data) => (
+            <div className="post">
+              <h2>{data.name}</h2>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="loading">Loading... </p>
+      )}
+    </div>
+  */
 }
