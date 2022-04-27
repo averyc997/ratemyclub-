@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
-
+import { getDatabase } from "firebase/database";
 const firebaseConfig = {
    /* apiKey: "AIzaSyDNdU2ys5fAFOx87qVEJETcCKcRF39TSx8",
     authDomain: "rate-my-club.firebaseapp.com",
@@ -24,6 +24,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+
+
+/*
 const database = firebase.database().ref().child('reviews');
 
 export const Push = () => {
@@ -35,7 +38,9 @@ export const Push = () => {
       dislikes : dislikes,
     }).catch(alert);
 }
-
+*/
 export function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
 }
+
+export const db = getDatabase(app)
