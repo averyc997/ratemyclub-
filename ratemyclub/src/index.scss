@@ -160,7 +160,7 @@ nav {
   text-align: left;
   width: 90%;
   margin: 0 auto;
-  padding: 1.5rem 10% 1rem 10%;
+  padding: 1.5rem 5% 1rem 5%;
   position: relative;
   overflow-y: scroll;
   max-height: 15rem;
@@ -173,6 +173,9 @@ nav {
       color: $darkblue;
       text-decoration: underline;
     }
+  }
+  .btn{
+    display: block;
   }
   p{
     font-weight: normal;

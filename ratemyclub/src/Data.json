@@ -1,7 +1,7 @@
 [
     {
      "name": "Pearl Hacks",
-     "link": "",
+     "link": "PearlHacks",
      "category": "Academic",
      "img": "https://se-images.campuslabs.com/clink/images/4f1a4ee2-315a-4001-98b8-bdaba68215a5dbf8cb84-0c1c-4e90-be8b-5c0273a9cac0.png?preset=small-sq",
      "website": "https://pearlhacks.com/",
@@ -12,7 +12,7 @@
     },
     {
     "name": "App Team Carolina",
-    "link": "",
+    "link": "AppTeamCarolina",
     "category": "Academic",
     "img": "https://se-images.campuslabs.com/clink/images/7152b831-64e9-42d3-8915-fbff8c43cb77fe0a6fad-7559-42d3-ade4-bb7a0c0fc077.png?preset=small-sq",
     "website": "https://appteamcarolina.com/",
@@ -23,7 +23,7 @@
     },
     {
     "name": "ACM at Carolina",
-    "link": "",
+    "link": "ACM",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -35,7 +35,7 @@
     ,
     {
     "name": "Club3",
-    "link": "",
+    "link": "Club3",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -46,7 +46,7 @@
     },
     {
     "name": "Club4",
-    "link": "",
+    "link": "Club4",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -57,7 +57,7 @@
     },
     {
     "name": "Club5",
-    "link": "",
+    "link": "Club5",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -68,7 +68,7 @@
     },
     {
     "name": "Club6",
-    "link": "",
+    "link": "Club6",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -79,7 +79,7 @@
     },
     {
     "name": "Club7",
-    "link": "",
+    "link": "Club7",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -90,7 +90,7 @@
     },
     {
     "name": "Club8",
-    "link": "",
+    "link": "Club8",
     "category": "Academic",
     "img": "",
     "website": "https://appteamcarolina.com/",
@@ -98,5 +98,17 @@
     "email":"",
     "instagram":"https://www.instagram.com/appteamcarolina/",
     "facebook":""
+    },
+    {
+    "name": "sports1",
+    "link": "",
+    "category": "Sports",
+    "img": "",
+    "website": "https://appteamcarolina.com/",
+    "description": "The mission of App Team Carolina is to create a collaborative space for UNC students to design, build, and release apps for Apple platforms.",
+    "email":"",
+    "instagram":"https://www.instagram.com/appteamcarolina/",
+    "facebook":""
     }
+    
   ]

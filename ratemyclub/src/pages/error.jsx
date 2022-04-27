@@ -1,10 +1,14 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+
+import { useNavigate } from 'react-router-dom';
+
 const Error = () => {
+  const history = useNavigate();
     return (
         <>
           <h1>Oops! Something went wrong!</h1>
-          <a href="../">Return to Home</a>
+          <a onClick={() => history(`/`)} href="#">Return to Home</a>
         </>
       );
 }

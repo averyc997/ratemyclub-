@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CloseIcon from "@material-ui/icons/Close";
+import { useNavigate } from 'react-router-dom';
 
 const Searchbar = ({ placeholder, data }) => {
   const [filteredData, setFilteredData] = useState([]);
@@ -22,6 +22,8 @@ const Searchbar = ({ placeholder, data }) => {
     setFilteredData([]);
     setWordEntered("");
   };
+  const history = useNavigate();
+
 
   return (
     <div
@@ -53,9 +55,9 @@ const Searchbar = ({ placeholder, data }) => {
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <a className="dataItem" href={value.link} target="_blank">
+              <button className="btn dataItem" onClick={() => history(`/club/${value.link}`)} target="_blank">
                   <p><span>{value.name}</span> - {value.category}</p>
-              </a>
+              </button>
             );
           })}
         </div>

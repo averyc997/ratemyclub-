@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dialog } from "@material-ui/core";
 import "./Modal.scss";
+import { useNavigate } from 'react-router-dom';
 
 function LoginDialog(props) {
   const { open, setLoginOpen, setSignupOpen } = props;
@@ -98,6 +99,7 @@ const Navbar = () => {
   const handleSignup = (event) => {
     setSignupOpen(true);
   };
+  const history = useNavigate();
 
   return (
     <>
@@ -153,7 +155,7 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <a href="./create">Club Organizer?</a>
+            <a onClick={() => history(`/create`)} href="create">Club Organizer?</a>
           </li>
         </ul>
         <button className="btn btn-secondary" onClick={handleLogin}>

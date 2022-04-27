@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/index';
 import CreateClub from './pages/createclub';
 import Club from './pages/club';
+import Categories from './pages/categories';
 import Error from './pages/error';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CreateClub />} />
-        <Route path="/club/:id" element={<Club />} />
+        <Route path="/club/:id" element={<Club />} />\
+        <Route path="/categories/:id" element={<Categories />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

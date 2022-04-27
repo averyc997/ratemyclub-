@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-import Navbar from "../components/Navbar";
-import Hero from "../components/Searchbar";
-import Footer from "../components/Footer";
 import Searchbar from "../components/Searchbar";
 import ClubData from "../Data.json";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const history = useNavigate();
 
   return (
     <>
@@ -44,7 +43,7 @@ const Home = () => {
       <section className="categories mb-4 pb-4">
         <h2 className="text-center pt-4 my-4">Featured Categories</h2>
         <div className="d-flex intro-cntnr">
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Sports`, {id: 'Sports'})}>
             <a href="">
               <img src={"../img/sports.png"} alt="" />
             </a>
@@ -52,7 +51,7 @@ const Home = () => {
               <strong>Sports</strong>
             </a>
           </div>
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Gaming`)}>
             <a href="">
               <img src={"../img/gaming.png"} alt="" />
             </a>
@@ -61,7 +60,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Service`)} >
             <a href="">
               <img src={"../img/service.png"} alt="" />
             </a>
@@ -71,7 +70,7 @@ const Home = () => {
           </div>
         </div>
         <div className="d-flex intro-cntnr">
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Greek`)}>
             <a href="">
               <img src={"../img/greek.png"} alt="" />
             </a>
@@ -79,7 +78,7 @@ const Home = () => {
               <strong>Greek Life</strong>
             </a>
           </div>
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Academic`)}>
             <a href="">
               <img src={"../img/academic.png"} alt="" />
             </a>
@@ -88,7 +87,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="px-4 text-center">
+          <div className="px-4 text-center" onClick={() => history(`/categories/Cultural`)}>
             <a href="">
               <img src={"../img/globe.png"} alt="" />
             </a>
