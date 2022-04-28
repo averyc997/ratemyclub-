@@ -8,7 +8,6 @@ const API_URL = "https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json";
 
 const CreateClub = () => {
   const history = useNavigate();
-
   const [posts, setPosts] = useState([]);
   // Define the function that fetches the data from API
   const fetchData = async () => {

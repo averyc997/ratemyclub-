@@ -121,33 +121,33 @@ const Navbar = () => {
                 Categories
               </button>
               <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Academic`)}>
+                  <a className="dropdown-item" href="">
                     Academic
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Cultural`)}>
+                  <a className="dropdown-item" href="">
                     Cultural
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Gaming`)}>
+                  <a className="dropdown-item" href="">
                     Gaming
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Greek`)}>
+                  <a className="dropdown-item" href="">
                     Greek Life
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Service`)}>
+                  <a className="dropdown-item" href="">
                     Service
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={() => history(`/categories/Sports`)}>
+                  <a className="dropdown-item" href="">
                     Sports
                   </a>
                 </li>

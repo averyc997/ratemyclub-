@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Dialog } from "@material-ui/core";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 const Club = () => {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [club, setClub] = useState([]);
+  const [review, setReview] = useState([]);
+
   const { id } = useParams();
   const handleReview = (event) => {
     setReviewOpen(true);
@@ -18,7 +20,12 @@ const Club = () => {
     console.log(data);
     let clubData = filterClub(data, id)[0];
     console.log(clubData.name)
+    let reviewsArr = clubData.reviews
 
+    const arr = reviewsArr.map((element) => {
+      return [element.review, element.stars, element.tags];
+    });
+    console.log(arr)
    setClub([
       clubData.name,
       clubData.description,
@@ -27,8 +34,9 @@ const Club = () => {
       clubData.img,
       clubData.website,
       clubData.fb,
-      clubData.insta,
+      clubData.insta
     ]);
+    setReview(arr)
   };
 
   useEffect(() => {
@@ -48,31 +56,36 @@ const Club = () => {
               </div>
               <div className="socials d-flex flex-row">
                   <a href="">
-                    <i className="fa-brands fa-instagram-square"></i>
+                    <i className="fa-brands fa-instagram"></i>
                   </a>
                   <a href="">
                     <i className="fa-brands fa-facebook-square"></i>
                   </a>
                   <a href="">
-                    <i className="fa-solid fa-envelope-open-text"></i>
+                    <i className="fa-regular fa-envelope"></i>
                   </a>
                   <a href="">
                     <i className="fa-solid fa-code"></i>
                   </a>
               </div>
-              <div className="row">
-                <div className="tags">
-                  <p>tag</p>
+              <div className="d-flex my-3 gap-2">
+                <div className="tags btn-secondary btn">
+                  tag
                 </div>
-                <div className="tags">
-                  <p>tag</p>
+                <div className="tags btn-secondary btn">
+                  tag
                 </div>
               </div>
-              <p className="clubDescrip">{club[1]}</p>
-              <button className="rateClub" onClick={handleReview}>
+              <div className="clubDescr"><p>{club[1]}</p></div>
+              <button className="rateClub btn btn-primary" onClick={handleReview}>
                 Rate this club!
               </button>
             </div>
+            {review.map((element) => (
+            <div className="categoryList my-4">
+              <h3>{element[0]}</h3> {element[1]}{element[2]}
+            </div>
+          ))}
             <ReviewDialog open={reviewOpen} setReviewOpen={setReviewOpen} />
             <div className="col clubRight">
               <div className="histContainer">
@@ -80,7 +93,7 @@ const Club = () => {
               </div>
             </div>
             <div className="reviewContainer">
-              <h1>Reviews</h1>
+              <h2>Reviews</h2>
             </div>
           </div>
         </section>
