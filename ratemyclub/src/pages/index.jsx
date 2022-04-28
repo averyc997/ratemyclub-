@@ -26,7 +26,7 @@ const Home = () => {
       <section className="hero">
         <img src={"../img/logo-hero.png"} alt="RMC Logo" />
         <h3>UNC's unofficial club review site!</h3>
-       <Searchbar placeholder = "Search for clubs..." data={posts} />
+       <Searchbar data={posts} />
       </section>
       <section className="container">
         <h2 className="text-center pt-4 my-4">What is Rate My Club?</h2>

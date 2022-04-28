@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const Searchbar = ({ placeholder, data }) => {
+const Searchbar = ({ data }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -23,7 +23,7 @@ const Searchbar = ({ placeholder, data }) => {
     setWordEntered("");
   };
   const history = useNavigate();
-
+  const {state} = useLocation();
 
   return (
     <div
@@ -43,7 +43,7 @@ const Searchbar = ({ placeholder, data }) => {
         <div className="searchInputs">
         <input
             type="search"
-            placeholder={placeholder}
+            placeholder = "Search for clubs..."            
             value={wordEntered}
             onChange={handleFilter}
             aria-describedby="home search"
@@ -92,5 +92,9 @@ export default Searchbar;
         <p className="loading">Loading... </p>
       )}
     </div>
+
+
+
+    , {state: { name: value.name, link:value.link, desc: value.description }, replace: true}
   */
 }

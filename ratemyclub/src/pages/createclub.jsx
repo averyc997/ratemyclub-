@@ -167,7 +167,7 @@ const CreateClub = () => {
             <div className="row">
               <strong>Contact Information</strong>
               <div className="col socials">
-                <i class="fa-solid fa-envelope-open-text"></i>
+                <i className="fa-solid fa-envelope-open-text"></i>
                 <input
                   type="email"
                   className="form-control"
@@ -178,7 +178,7 @@ const CreateClub = () => {
                 />
               </div>
               <div className="col socials">
-                <i class="fa-solid fa-code"></i>
+                <i className="fa-solid fa-code"></i>
                 <input
                   type="text"
                   className="form-control"
@@ -191,7 +191,7 @@ const CreateClub = () => {
             </div>
             <div className="row mt-3">
               <div className="col socials">
-                <i class="fa-brands fa-facebook-square"></i>
+                <i className="fa-brands fa-facebook-square"></i>
                 <input
                   type="text"
                   className="form-control"
@@ -202,7 +202,7 @@ const CreateClub = () => {
                 />
               </div>
               <div className="col socials">
-                <i class="fa-brands fa-instagram-square"></i>
+                <i className="fa-brands fa-instagram-square"></i>
                 <input
                   required
                   type="text"

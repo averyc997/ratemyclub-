@@ -24,7 +24,7 @@ function LoginDialog(props) {
           }}
           className="close"
         >
-          <i class="fa fa-times" aria-hidden="true"></i>
+          <i className="fa fa-times" aria-hidden="true"></i>
         </button>
         <h1>Log In</h1>
         <form action="put" method="#">
@@ -66,7 +66,7 @@ function SignupDialog(props) {
             setSignupOpen(false);
           }}
         >
-          <i class="fa fa-times" aria-hidden="true"></i>
+          <i className="fa fa-times" aria-hidden="true"></i>
         </button>
         <h1>Sign Up</h1>
         <form action="put" method="#">
@@ -105,13 +105,13 @@ const Navbar = () => {
     <>
       <nav>
         <a href="../">
-          <img src="./img/logo-header.png" alt="" />
+          <img src="https://ratemyclubunc.web.app/img/logo-header.png" alt="" />
         </a>
         <ul>
           <li>
-            <div class="btn-group">
+            <div className="btn-group">
               <button
-                class="btn dropdown-toggle"
+                className="btn dropdown-toggle"
                 type="button"
                 id="defaultDropdown"
                 data-bs-toggle="dropdown"
@@ -120,34 +120,34 @@ const Navbar = () => {
               >
                 Categories
               </button>
-              <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+              <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Academic
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Cultural
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Gaming
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Greek Life
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Service
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#">
                     Sports
                   </a>
                 </li>
