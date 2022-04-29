@@ -8,9 +8,11 @@ import Categories from './pages/categories';
 import Error from './pages/error';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { AuthProvider } from "./AuthProvider";
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -22,6 +24,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 };
 

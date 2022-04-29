@@ -2,7 +2,7 @@ $white: #fff;
 $black: #000;
 $darkblue: #061A40;
 $lightblue: #8EBAE5;
-
+$gold: #FFD43D;
 h1 {
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
@@ -339,6 +339,45 @@ footer {
       font-size: 1.5rem;
     }
   }
+
+  .categoryList{
+    display: flex;
+    background-color: $white;
+    border-radius: 1rem;
+    max-width: 60rem;
+    border: #cecece 1px solid;
+
+    .votes{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: #cecece 1px solid;
+      margin-right: 2rem; 
+
+      i{
+        font-size: 2rem;
+      }
+      .fa-thumbs-down{
+        transform: rotateY(180deg);
+        margin-top:1.5rem;
+      }
+    }
+
+    .reviewInfo{
+      display: flex;
+      flex-direction: column;
+
+      .stars{
+        color: $gold;
+        font-size: 1.5rem;
+      }
+      .btn{
+        margin: 0 auto 1rem 0;
+        color: $black;
+        font-weight: 500;
+      }
+    }
+  }
 }
 #club, #category{
   background-image: url('./img/background.png');
@@ -369,4 +408,11 @@ footer {
     padding: 2rem 3rem;
     max-width: 55rem;
   }
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display: block;
 }
