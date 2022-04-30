@@ -1,14 +1,20 @@
 import React from "react";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Error = () => {
   const history = useNavigate();
-    return (
-        <>
-          <h1>Oops! Something went wrong!</h1>
-          <a onClick={() => history(`/`)} href="#">Return to Home</a>
-        </>
-      );
-}
+  return (
+    <main className="fof">
+      <h1>Error 404</h1>
+      <p>
+        Oops! Something went wrong! The page you are looking for does not
+        currently exist.
+      </p>
+      <a onClick={() => history(`/`)} href="#" className="btn btn-primary">
+        Return to Home
+      </a>
+    </main>
+  );
+};
 export default Error;

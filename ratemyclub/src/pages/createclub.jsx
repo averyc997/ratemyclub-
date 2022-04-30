@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { set, ref } from "@firebase/database";
+import { getStorage, uploadBytes } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useForm } from 'react-hook-form';
+import Upload from "../components/Upload"
 const API_URL = "https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json";
 
 const CreateClub = () => {
@@ -51,8 +53,8 @@ const CreateClub = () => {
   const handleWebsiteChange = (e) => {
     setWebsite(e.target.value);
   };
-  const handleImgChange = (e) => {
-    setImg(e.target.value);
+  const handleImgChange = (event) => {
+    setImg(event.target.value);
   };
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -81,7 +83,6 @@ const CreateClub = () => {
       alert( `Invalid entry: ${Object.values(errors)[0]}`)
       return;
     }
-
     set(ref(db, `/clubs/${posts.length}`), {
       name,
       description,
@@ -91,6 +92,7 @@ const CreateClub = () => {
       fb,
       category,
       insta,
+      img
     });
     setName("");
     setCategory("");
@@ -101,13 +103,15 @@ const CreateClub = () => {
     setEmail("");
     setLink("");
     setCount(0);
+    setImg("");
     alert(`${name} has been added`);
     history(`/club/${link}`);
   };
-
+ 
   return (
     <>
       <main id="create" className="py-4">
+
         <section className="container">
           <div className="intro">
             <h1 className="mt-4">Create your club!</h1>
@@ -156,12 +160,13 @@ const CreateClub = () => {
                 </select>
               </div>
             </div>
-            <div className="w-75">
-              <label for="formFile" className="form-label">
+              {/*<label for="formFile" className="form-label">
                 Upload club image
               </label>
-              <input className="form-control" type="file" id="formFile" />
-            </div>
+              <input className="form-control" type="file" id="formFile"
+              value={img}
+  onChange={handleImgChange} />*/}
+          <Upload />
 
             <div className="row">
               <strong>Contact Information</strong>
@@ -240,5 +245,7 @@ const CreateClub = () => {
     </>
   );
 };
+
+
 
 export default CreateClub;

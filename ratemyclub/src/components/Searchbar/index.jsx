@@ -11,7 +11,6 @@ const Searchbar = ({ data }) => {
     const newFilter = data.filter((value) => {
       return value.name.toLowerCase().includes(searchWord.toLowerCase());
     });
-
     if (searchWord === "") {
       setFilteredData([]);
     } else {
@@ -23,10 +22,9 @@ const Searchbar = ({ data }) => {
     setWordEntered("");
   };
   const history = useNavigate();
-  const {state} = useLocation();
 
   return (
-    <div
+    <form
       id="hero-search"
       className="p-1 bg-light rounded rounded-pill shadow-sm mt-4"
     >
@@ -36,6 +34,7 @@ const Searchbar = ({ data }) => {
             id="button-addon2"
             type="submit"
             className="btn btn-link text-muted"
+            onClick={() => history(`/search/${wordEntered}`)}
           >
             <i className="fa fa-search"></i>
           </button>
@@ -63,38 +62,7 @@ const Searchbar = ({ data }) => {
           })}
         </div>
       )}
-    </div>
+    </form>
   );
 };
 export default Searchbar;
-{
-  /*<div className="input-group">
-
-    <input
-      type="search"
-      placeholder="Search for a club..."
-      aria-describedby="button-addon2"
-      className="form-control border-0 bg-light"
-    />
-  </div>
-  
-  
-        <div className="wrapper">
-      {data.length > 0 ? (
-        <div className="content">
-          {data.map((data) => (
-            <div className="post">
-              <h2>{data.name}</h2>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="loading">Loading... </p>
-      )}
-    </div>
-
-
-
-    , {state: { name: value.name, link:value.link, desc: value.description }, replace: true}
-  */
-}

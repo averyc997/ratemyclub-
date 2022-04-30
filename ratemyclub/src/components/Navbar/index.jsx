@@ -34,7 +34,7 @@ function SignupDialog(props) {
           .catch((err) => console.log(err));
         setSignupOpen(false);
       } else {
-        alert('Input Error: Must email ending in "unc.edu"')
+        alert('Input Error: Must email ending in "unc.edu"');
       }
     };
     onRegister();
@@ -71,7 +71,7 @@ function SignupDialog(props) {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <div className="d-flex my-3">
+            <div className="d-flex my-3 name">
               <div>
                 <label for="first name">First Name</label>
                 <input
@@ -227,7 +227,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav>
+      <nav className="navbar bg-light">
         <a href="../">
           <img src="https://ratemyclubunc.web.app/img/logo-header.png" alt="" />
         </a>
@@ -295,7 +295,17 @@ const Navbar = () => {
         >
           {!currentUser ? "Sign Up" : ""}
         </button>
-
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarToggleExternalContent"
+          aria-controls="navbarToggleExternalContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <LoginDialog
           open={loginOpen}
           setLoginOpen={setLoginOpen}
@@ -307,12 +317,80 @@ const Navbar = () => {
           setSignupOpen={setSignupOpen}
         />
       </nav>
+      <aside className="collapse" id="navbarToggleExternalContent">
+        <div className="p-4 d-flex flex-column justify-content-center align-items-center">
+          {currentUser && <p className="mb-0">Welcome, {username}</p>}
+          <ul>
+            <li>
+              <div className="btn-group">
+                <button
+                  className="btn dropdown-toggle"
+                  type="button"
+                  id="defaultDropdown"
+                  data-bs-toggle="dropdown"
+                  data-bs-auto-close="true"
+                  aria-expanded="false"
+                >
+                  Categories
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
+                  <li onClick={() => history(`/categories/Academic`)}>
+                    <a className="dropdown-item" href="">
+                      Academic
+                    </a>
+                  </li>
+                  <li onClick={() => history(`/categories/Cultural`)}>
+                    <a className="dropdown-item" href="">
+                      Cultural
+                    </a>
+                  </li>
+                  <li onClick={() => history(`/categories/Gaming`)}>
+                    <a className="dropdown-item" href="">
+                      Gaming
+                    </a>
+                  </li>
+                  <li onClick={() => history(`/categories/Greek`)}>
+                    <a className="dropdown-item" href="">
+                      Greek Life
+                    </a>
+                  </li>
+                  <li onClick={() => history(`/categories/Service`)}>
+                    <a className="dropdown-item" href="">
+                      Service
+                    </a>
+                  </li>
+                  <li onClick={() => history(`/categories/Sports`)}>
+                    <a className="dropdown-item" href="">
+                      Sports
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a onClick={() => history(`/create`)} href="create">
+                Club Organizer?
+              </a>
+            </li>
+          </ul>
+          <button className="btn btn-secondary" onClick={clickLogin}>
+            {currentUser ? "Log Out" : "Log In"}
+          </button>
+          <button
+            className={`btn btn-primary ${showBtn ? "" : "hide"}`}
+            id="signUp"
+            onClick={handleSignup}
+          >
+            {!currentUser ? "Sign Up" : ""}
+          </button>
+        </div>
+      </aside>
     </>
   );
 };
 function emailRegex(input) {
   let regex = /unc\.edu$/i;
-  console.log(regex.test(input))
+  console.log(regex.test(input));
   return regex.test(input);
 }
 
