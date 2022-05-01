@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../firebase";
 import { set, ref } from "@firebase/database";
-import { getStorage, uploadBytes } from "firebase/storage";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useForm } from 'react-hook-form';
-import Upload from "../components/Upload"
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import Upload from "../components/Upload";
+
 const API_URL = "https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json";
 
 const CreateClub = () => {
+  const params = useParams;
+
   const history = useNavigate();
   const [posts, setPosts] = useState([]);
   // Define the function that fetches the data from API
@@ -16,12 +17,12 @@ const CreateClub = () => {
     const { data } = await axios.get(API_URL);
     setPosts(data);
   };
+  let [searchParams, setSearchParams] = useSearchParams();
 
   // Trigger the fetchData after the initial render by using the useEffect hook
   useEffect(() => {
     fetchData();
   }, []);
-
   const [count, setCount] = useState(0);
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
@@ -30,7 +31,6 @@ const CreateClub = () => {
   const [insta, setInsta] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
-  const [img, setImg] = useState("");
   const [category, setCategory] = useState("");
 
   const handleNameChange = (e) => {
@@ -53,9 +53,6 @@ const CreateClub = () => {
   const handleWebsiteChange = (e) => {
     setWebsite(e.target.value);
   };
-  const handleImgChange = (event) => {
-    setImg(event.target.value);
-  };
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
@@ -63,6 +60,7 @@ const CreateClub = () => {
   const postDB = (e) => {
     let errors = {};
     e.preventDefault();
+  
     if (!name.trim()) {
       errors.name = "Club name required";
     }
@@ -73,16 +71,17 @@ const CreateClub = () => {
       errors.email = "Email required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       errors.email = "Please check email format";
-    } 
+    }
     if (!description) {
       errors.description = "Description is required";
     } else if (description.length < 20) {
       errors.description = "Description needs to be 20 characters or more";
     }
     if (Object.keys(errors).length !== 0) {
-      alert( `Invalid entry: ${Object.values(errors)[0]}`)
+      alert(`Invalid entry: ${Object.values(errors)[0]}`);
       return;
     }
+    const img = window.location.search.slice(1)
     set(ref(db, `/clubs/${posts.length}`), {
       name,
       description,
@@ -103,15 +102,13 @@ const CreateClub = () => {
     setEmail("");
     setLink("");
     setCount(0);
-    setImg("");
     alert(`${name} has been added`);
     history(`/club/${link}`);
   };
- 
+
   return (
     <>
       <main id="create" className="py-4">
-
         <section className="container">
           <div className="intro">
             <h1 className="mt-4">Create your club!</h1>
@@ -160,14 +157,7 @@ const CreateClub = () => {
                 </select>
               </div>
             </div>
-              <label for="formFile" className="form-label">
-                Upload club image
-              </label>
-              <input className="form-control" type="file" id="formFile"
-              value={img}
-  onChange={handleImgChange} />{/*
-  <Upload />*/}
-
+            <Upload />
 
             <div className="row">
               <strong>Contact Information</strong>
@@ -228,12 +218,12 @@ const CreateClub = () => {
                   className="form-control"
                   id="textArea"
                   rows="5"
-                  maxLength="350"
+                  maxLength="500"
                   value={description}
                   onChange={handleDescChange}
                 ></textarea>
                 <p className="text-end mt-2 mb-0 text-black-50">
-                  {count} / 350
+                  {count} / 500
                 </p>
               </div>
             </div>
@@ -246,7 +236,5 @@ const CreateClub = () => {
     </>
   );
 };
-
-
 
 export default CreateClub;

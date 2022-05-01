@@ -1,59 +1,66 @@
 import { useState, useEffect } from "react";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
+
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+
 import { storage } from "../../firebase";
 import { v4 } from "uuid";
 
 function Upload() {
-  const [imageUpload, setImageUpload] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
+    const [progress, setProgress] = useState(0);
+    const [style, setStyle] = useState("");
+    const [style2, setStyle2] = useState("");
 
-  const imagesListRef = ref(storage, "images/");
-  const uploadFile = () => {
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrls((prev) => [...prev, url]);
-      });
-    });
-  };
+    const history = useNavigate();
+    
+    const formHandler = (e) => {
+      e.preventDefault();
+      const file = e.target[0].files[0];
+      uploadFiles(file);
+    };
+  
+    const uploadFiles = (file) => {
 
-  useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
-
+      if (!file) return;
+      const sotrageRef = ref(storage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(sotrageRef, file);
+  
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(prog);
+        },
+        (error) => console.log(error),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            history(`?${downloadURL}`);
+          });
+        }
+      );
+    };  const changeStyle = () => {      
+        setStyle("checked");
+      };
+      const changeStyle2 = () => {      
+        setStyle2("checkBtn");
+      };
   return (
-
     <>
-    <div className="w-100">
-       
-    <label for="formFile" className="form-label">
-                Upload club image
-              </label> <div className="d-flex ">
-      <input
-        className="form-control" type="file" id="formFile"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }}
-      />
-      <button className ="btn btn-secondary px-2 py-1 ms-3" onClick={uploadFile}> Upload&nbsp;Image</button></div>
-      {/*imageUrls.map((url) => {
-        alert(url)
-      })*/
-      console.log(imageUrls[imageUrls.length-1])}
-      </div>
+      <form onSubmit={formHandler}>
+        <label for="formFile" class="form-label">Upload club image<span class="text-danger">*</span>
+</label>
+        <input type="file" className="input form-control" onChange={changeStyle2} />
+        <div className="d-flex align-items-center mt-2">
+        <p className="mb-0 fw-bold">{progress == 0 ? "" : `Upload Success!`}</p>
+        <div className={`d-none${style2}`}>
+        <strong className={`me-4${style2}`}>{progress == 0 ? "Confirm Image?" : ""}</strong>
+        <button onClick={changeStyle} type="submit" className={`btn-light btn ms-2 ${style}`}></button>
+        </div>
+        </div>
+      </form>
+ 
      </>
   );
 }

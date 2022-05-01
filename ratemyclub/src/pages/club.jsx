@@ -4,18 +4,56 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   ComposedChart,
-  Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   LabelList,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
+
+const average = (review) => {
+  if (review == null) {
+    return "No reviews yet :/";
+  }
+  console.log(review);
+  let i = 0;
+  let count = 0;
+  for (let j = 0; j <= review.length - 1; j++) {
+    i += review[j].stars;
+    count++;
+  }
+  let ratio = i / count;
+  return Math.round(ratio * 10.0) / 10.0;
+};
+const starNumber = (review) => {
+  let starArray = [0, 0, 0, 0, 0];
+  if (review == null) {
+    return starArray;
+  }
+  for (let j = 0; j <= review.length - 1; j++) {
+    if (review[j].stars === 1) {
+      starArray[0]++;
+    }
+    if (review[j].stars === 2) {
+      starArray[1]++;
+    }
+    if (review[j].stars === 3) {
+      starArray[2]++;
+    }
+    if (review[j].stars === 4) {
+      starArray[3]++;
+    }
+    if (review[j].stars === 5) {
+      starArray[4]++;
+    }
+  }
+  return starArray;
+  //take in review, go to review[j] star, do check, update the count, return variables
+};
+
 let starAverage = 0;
-let starArr = []
+let starArr = [];
 const Club = () => {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [club, setClub] = useState([]);
@@ -25,18 +63,16 @@ const Club = () => {
     setReviewOpen(true);
   };
 
-
-
   const fetchClub = async () => {
     const { data } = await axios.get(
       `https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json`
     );
     console.log(data);
     let clubData = filterClub(data, id)[0];
-    console.log(clubData.reviews)
+    console.log(clubData.reviews);
     let reviewTotal = average(clubData.reviews);
-    starArr = starNumber(clubData.reviews)
-    starAverage = reviewTotal
+    starArr = starNumber(clubData.reviews);
+    starAverage = reviewTotal;
     console.log(clubData.name);
     if (clubData.reviews) {
       let reviewsArr = clubData.reviews;
@@ -44,7 +80,6 @@ const Club = () => {
       const arr = reviewsArr.map((element) => {
         return [element.review, element.stars, element.tags];
       });
-
 
       setReview(arr);
     }
@@ -67,26 +102,25 @@ const Club = () => {
 
   const data = [
     {
-      name: 'Awesome',
-      Stars: starArr[4],
+      name: "Awesome",
+      Ratings: starArr[4],
     },
     {
-      name: 'Great',
-      Stars: starArr[3],
+      name: "Great",
+      Ratings: starArr[3],
     },
     {
-      name: 'Good',
-      Stars: starArr[2],
+      name: "Good",
+      Ratings: starArr[2],
     },
     {
-      name: 'Okay',
-      Stars: starArr[1],
+      name: "Okay",
+      Ratings: starArr[1],
     },
     {
-      name: 'Needs work',
-      Stars: starArr[0],
+      name: "Needs work",
+      Ratings: starArr[0],
     },
-
   ];
 
   return (
@@ -94,7 +128,7 @@ const Club = () => {
       <main id="club" className="py-4">
         <section className="container">
           <div className="row club">
-            <div className="col clubber">
+            <div className="col-lg-7 col-md-12 clubber">
               <div className="clubTop">
                 <img className="clubImg" src={club[4]}></img>
                 <h1 className="clubTitle">{club[0]}</h1>
@@ -121,41 +155,34 @@ const Club = () => {
                 <p>{club[1]}</p>
               </div>
               <button
-                className="rateClub btn btn-primary"
+                className="rateClub btn btn-primary mb-4"
                 onClick={handleReview}
               >
                 Rate this club!!!!!
               </button>
             </div>
-            <div className="col histogram">
-
-
-              <p id="Ssize">{starAverage}</p>
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="col-lg-5 col-md-12 histogram">
+              <p id="Ssize"><span>{starAverage}</span> {/\d/.test(starAverage) ? "/ 5" : ""}</p>
+              <ResponsiveContainer>
                 <ComposedChart
                   layout="vertical"
                   width={1000}
-                  height={300}
                   data={data}
                   margin={{
                     top: 2,
-                    right: 20,
-                    bottom: 100,
-                    left: 20,
+                    right: 60,
+                    bottom: 80,
+                    left: 60,
                   }}
                 >
-
                   <XAxis type="number" stroke="#FFFF" />
-                  <YAxis dataKey="name" type="category" scale="band" />
+                  <YAxis dataKey="name" type="category" scale="band" fontWeight="bold"/>
                   <Tooltip />
-
-
-
-                  <Bar dataKey="Stars" barSize={20} fill="#FFD43D"><LabelList dataKey="Stars" position="right" /></Bar>
-
+                  <Bar dataKey="Ratings" barSize={20} fill="#FFD43D">
+                    <LabelList dataKey="Ratings" position="right"/>
+                  </Bar>
                 </ComposedChart>
               </ResponsiveContainer>
-
             </div>
           </div>
           <div>
@@ -219,45 +246,5 @@ const filterClub = (arr, searchKey) => {
     Object.keys(obj).some((key) => obj[key].includes(searchKey))
   );
 };
-const average = (review) => {
-  if (review == null) {
-    return "No reviews yet :(";
-  }
-  console.log(review)
-  let i = 0;
-  let count = 0;
-  for (let j = 0; j <= review.length - 1; j++) {
-    i += review[j].stars
-    count++
-  }
-  let ratio = i / count
-  return (Math.round(ratio * 10.0) / 10.0) + "/5";
-}
-const starNumber = (review) => {
-
-  let starArray = [0, 0, 0, 0, 0]
-  if (review == null) {
-    return starArray;
-  }
-  for (let j = 0; j <= review.length - 1; j++) {
-    if (review[j].stars === 1) {
-      starArray[0]++
-    }
-    if (review[j].stars === 2) {
-      starArray[1]++
-    }
-    if (review[j].stars === 3) {
-      starArray[2]++
-    }
-    if (review[j].stars === 4) {
-      starArray[3]++
-    }
-    if (review[j].stars === 5) {
-      starArray[4]++
-    }
-  }
-  return starArray
-  //take in review, go to review[j] star, do check, update the count, return variables 
-}
 
 export default Club;

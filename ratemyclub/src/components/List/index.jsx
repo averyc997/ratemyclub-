@@ -5,6 +5,8 @@ import axios from "axios";
 const List = () => {
   const { id } = useParams();
   const [category, setCategory] = useState([]);
+  const [categoryReverse, setcategoryReverse] = useState([]);
+  const [order, setOrder] = useState(true);
   const history = useNavigate();
 
   const fetchCategory = async () => {
@@ -14,21 +16,42 @@ const List = () => {
     let categoryData = filterCategory(data, id);
 
     const arr = categoryData.map((element) => {
-      return [element.name, element.description, element.link];
+        return [element.name, element.description, element.link];
+      }).sort(function (a, b) {
+        var nameA = a[0].toLowerCase(),
+        nameB = b[0].toLowerCase();
+        if (nameA < nameB)
+        //sort string ascending
+        return -1;
+        if (nameA > nameB) return 1;
+        return 0; //default return value (no sorting)
+    });
+    let reversed = categoryData.map((element) => {
+        return [element.name, element.description, element.link];
+      }).sort(function (a, b) {
+        var nameA = a[0].toLowerCase(),
+        nameB = b[0].toLowerCase();
+        if (nameA < nameB)
+        //sort string ascending
+        return 1;
+        if (nameA > nameB) return -1;
+        return 0; //default return value (no sorting)
     });
     setCategory(arr);
+    setcategoryReverse(reversed);
   };
 
   useEffect(() => {
     fetchCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(category, categoryReverse)
 
   return (
     <>
       <main id="category">
         <div className="container pt-4 pb-5">
-          <p className = "num">
+          <p className="num">
             {category.length} Organizations related to "{id}"
           </p>
 
@@ -47,23 +70,26 @@ const List = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={()=>setOrder(true)}>
+                  <a className="dropdown-item">
                     A-Z
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <li onClick={()=>setOrder(false)}>
+                  <a className="dropdown-item">
                     Z-A
                   </a>
                 </li>
               </ul>
             </div>
-            <button className="btn btn-primary mx-4 my-3" onClick={() => history(`/create`)}>
+            <button
+              className="btn btn-primary mx-4 my-3"
+              onClick={() => history(`/create`)}
+            >
               Club not found? Add it through this form!
             </button>
           </div>
-          {category.map((element) => (
+          {(order ? category : categoryReverse).map((element) => (
             <div className="categoryList my-4">
               <h3>{element[0]}</h3> {element[1]}{" "}
               <button
