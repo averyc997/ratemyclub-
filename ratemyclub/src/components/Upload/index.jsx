@@ -37,20 +37,22 @@ function Upload() {
   return (
 
     <>
-    <div className="w-75">
+    <div className="w-100">
+       
     <label for="formFile" className="form-label">
                 Upload club image
-              </label>
+              </label> <div className="d-flex ">
       <input
         className="form-control" type="file" id="formFile"
         onChange={(event) => {
-          setImageUpload(event.target.files[event.target.files.length - 1]);
+          setImageUpload(event.target.files[0]);
         }}
       />
-      <button onClick={uploadFile}> Upload Image</button>
+      <button className ="btn btn-secondary px-2 py-1 ms-3" onClick={uploadFile}> Upload&nbsp;Image</button></div>
       {/*imageUrls.map((url) => {
         alert(url)
-      })*/}
+      })*/
+      console.log(imageUrls[imageUrls.length-1])}
       </div>
      </>
   );

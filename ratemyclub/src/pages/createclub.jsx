@@ -160,13 +160,14 @@ const CreateClub = () => {
                 </select>
               </div>
             </div>
-              {/*<label for="formFile" className="form-label">
+              <label for="formFile" className="form-label">
                 Upload club image
               </label>
               <input className="form-control" type="file" id="formFile"
               value={img}
-  onChange={handleImgChange} />*/}
-          <Upload />
+  onChange={handleImgChange} />{/*
+  <Upload />*/}
+
 
             <div className="row">
               <strong>Contact Information</strong>
