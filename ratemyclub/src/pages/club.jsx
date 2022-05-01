@@ -130,7 +130,7 @@ const Club = () => {
             <div className="col histogram">
 
 
-              <p id="Ssize">{starAverage}/5</p>
+              <p id="Ssize">{starAverage}</p>
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart
                   layout="vertical"
@@ -220,6 +220,9 @@ const filterClub = (arr, searchKey) => {
   );
 };
 const average = (review) => {
+  if (review == null) {
+    return "No reviews yet :(";
+  }
   console.log(review)
   let i = 0;
   let count = 0;
@@ -228,10 +231,14 @@ const average = (review) => {
     count++
   }
   let ratio = i / count
-  return (Math.round(ratio * 10.0) / 10.0);
+  return (Math.round(ratio * 10.0) / 10.0) + "/5";
 }
 const starNumber = (review) => {
+
   let starArray = [0, 0, 0, 0, 0]
+  if (review == null) {
+    return starArray;
+  }
   for (let j = 0; j <= review.length - 1; j++) {
     if (review[j].stars === 1) {
       starArray[0]++
