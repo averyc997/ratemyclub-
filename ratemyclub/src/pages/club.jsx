@@ -134,16 +134,16 @@ const Club = () => {
                 <h1 className="clubTitle">{club[0]}</h1>
               </div>
               <div className="socials d-flex flex-row">
-                <a href={club[7]} target="_blank">
+                <a href={club[7]} target="_blank" className={`${club[7] ? "" : "d-none"}`}>
                   <i className="fa-brands fa-instagram"></i>
                 </a>
-                <a href={club[6]} target="_blank">
+                <a href={club[6]} target="_blank" className={`${club[6] ? "" : "d-none"}`}>
                   <i className="fa-brands fa-facebook-square"></i>
                 </a>
-                <a href={`mailto:${club[3]}`}>
+                <a href={`mailto:${club[3]}`} className={`${club[3] ? "" : "d-none"}`}>
                   <i className="fa-regular fa-envelope"></i>
                 </a>
-                <a href={club[5]} target="_blank">
+                <a href={club[5]} target="_blank" className={`${club[5] ? "" : "d-none"}`}>
                   <i className="fa-solid fa-code"></i>
                 </a>
               </div>
