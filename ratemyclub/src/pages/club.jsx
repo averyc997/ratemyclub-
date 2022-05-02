@@ -1,7 +1,9 @@
 import React, { useState, useEffect, PureComponent } from "react";
 import { Dialog } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { db, storage } from "../firebase";
+import { set, ref } from "@firebase/database";
 import {
   ComposedChart,
   Bar,
@@ -67,13 +69,11 @@ const Club = () => {
     const { data } = await axios.get(
       `https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json`
     );
-    console.log(data);
     let clubData = filterClub(data, id)[0];
-    console.log(clubData.reviews);
+    console.log(data.indexOf(filterClub(data, id))[0]);
     let reviewTotal = average(clubData.reviews);
     starArr = starNumber(clubData.reviews);
     starAverage = reviewTotal;
-    console.log(clubData.name);
     if (clubData.reviews) {
       let reviewsArr = clubData.reviews;
 
@@ -134,16 +134,31 @@ const Club = () => {
                 <h1 className="clubTitle">{club[0]}</h1>
               </div>
               <div className="socials d-flex flex-row">
-                <a href={club[7]} target="_blank" className={`${club[7] ? "" : "d-none"}`}>
+                <a
+                  href={club[7]}
+                  target="_blank"
+                  className={`${club[7] ? "" : "d-none"}`}
+                >
                   <i className="fa-brands fa-instagram"></i>
                 </a>
-                <a href={club[6]} target="_blank" className={`${club[6] ? "" : "d-none"}`}>
+                <a
+                  href={club[6]}
+                  target="_blank"
+                  className={`${club[6] ? "" : "d-none"}`}
+                >
                   <i className="fa-brands fa-facebook-square"></i>
                 </a>
-                <a href={`mailto:${club[3]}`} className={`${club[3] ? "" : "d-none"}`}>
+                <a
+                  href={`mailto:${club[3]}`}
+                  className={`${club[3] ? "" : "d-none"}`}
+                >
                   <i className="fa-regular fa-envelope"></i>
                 </a>
-                <a href={club[5]} target="_blank" className={`${club[5] ? "" : "d-none"}`}>
+                <a
+                  href={club[5]}
+                  target="_blank"
+                  className={`${club[5] ? "" : "d-none"}`}
+                >
                   <i className="fa-solid fa-code"></i>
                 </a>
               </div>
@@ -162,7 +177,9 @@ const Club = () => {
               </button>
             </div>
             <div className="col-lg-5 col-md-12 histogram">
-              <p id="Ssize"><span>{starAverage}</span> {/\d/.test(starAverage) ? "/ 5" : ""}</p>
+              <p id="Ssize">
+                <span>{starAverage}</span> {/\d/.test(starAverage) ? "/ 5" : ""}
+              </p>
               <ResponsiveContainer>
                 <ComposedChart
                   layout="vertical"
@@ -176,10 +193,15 @@ const Club = () => {
                   }}
                 >
                   <XAxis type="number" stroke="#FFFF" />
-                  <YAxis dataKey="name" type="category" scale="band" fontWeight="bold"/>
+                  <YAxis
+                    dataKey="name"
+                    type="category"
+                    scale="band"
+                    fontWeight="bold"
+                  />
                   <Tooltip />
                   <Bar dataKey="Ratings" barSize={20} fill="#FFD43D">
-                    <LabelList dataKey="Ratings" position="right"/>
+                    <LabelList dataKey="Ratings" position="right" />
                   </Bar>
                 </ComposedChart>
               </ResponsiveContainer>
@@ -213,7 +235,57 @@ const Club = () => {
 };
 
 function ReviewDialog(props) {
+  const [club, setClub] = useState([]);
   const { open, setReviewOpen } = props;
+  const { id } = useParams();
+  const [idx, setIdx] = useState(0);
+  const [stars, setStars] = useState(1);
+  const [review, setReview] = useState("");
+  const [tags, setTags] = useState("");
+  const history = useNavigate();
+
+  const fetchClub2 = async () => {
+    const { data } = await axios.get(
+      `https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json`
+    );
+    const theidx = data.indexOf(filterClub(data, id)[0]);
+    const idx = filterClub(data, id)[0];
+
+    setIdx(theidx);
+    const clubData = filterClub(data, id)[0];
+    setClub([clubData.name, clubData.link, clubData.reviews]);
+  };
+
+  useEffect(() => {
+    fetchClub2();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleStarsChange = (e) => {
+    setStars(e.target.value);
+  };
+  const handleReviewChange = (e) => {
+    setReview(e.target.value);
+  };
+  const handleTagChange = (e) => {
+    setTags(e.target.value);
+  };
+
+  const postDB = (e) => {
+    e.preventDefault();
+    let current = club[2] ? club[2].length : 0;
+    set(ref(db, `/clubs/${idx}/reviews/${current}`), {
+      stars,
+      review,
+      tags,
+    });
+    setStars(0);
+    setReview("");
+    setTags("");
+    setReviewOpen(false);
+    console.log(club[1]);
+    window.location.reload();
+  };
   return (
     <Dialog
       aria-labelledby="simple-dialog-title"
@@ -229,18 +301,45 @@ function ReviewDialog(props) {
         >
           <i className="fa fa-times" aria-hidden="true"></i>
         </button>
-        <h1>Rate: Totally fake club</h1>
+        <h1>{club[0]}</h1>
         <p>Rate this club:</p>
-        <form action="put" method="#">
+        <form>
           <section className="form">
+            <label for="leaveReview">Tag</label>
+            <input
+              type=""
+              name=""
+              id=""
+              placeholder=""
+              value={tags}
+              onChange={handleTagChange}
+            />
+            <label for="leaveReview">Star</label>
+            <input
+              type="number"
+              name=""
+              id=""
+              placeholder=""
+              value={stars}
+              onChange={handleStarsChange}
+            />
             <label for="leaveReview">Write a review</label>
-            <input type="" name="" id="" placeholder="" />
+            <input
+              type=""
+              name=""
+              id=""
+              placeholder=""
+              value={review}
+              onChange={handleReviewChange}
+            />
+            <button onClick={postDB}>submit</button>
           </section>
         </form>
       </div>
     </Dialog>
   );
 }
+
 const filterClub = (arr, searchKey) => {
   return arr.filter((obj) =>
     Object.keys(obj).some((key) => obj[key].includes(searchKey))
