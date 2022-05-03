@@ -306,7 +306,7 @@ function ReviewDialog(props) {
       open={open}
       className="modalBackground"
     >
-      <div className="modalContainer">
+      <div className="modalContainer reviewContainer">
         <button
           onClick={(event) => {
             setReviewOpen(false);
@@ -437,8 +437,8 @@ function ReviewDialog(props) {
             <p className="text-end mt-2 mb-0 text-black-50 counter">
               {count} / 250
             </p>
-            <button onClick={postDB} className="btn btn-primary">
-              submit
+            <button onClick={postDB} className="btn btn-primary submit-btn">
+              Submit
             </button>
           </section>
         </form>
