@@ -213,9 +213,12 @@ const Club = () => {
               review.map((element) => (
                 <div className="categoryList my-3">
                   <div className="votes px-5">
-                    <button className="like"><i className="fa-regular fa-thumbs-up"></i></button>
-                    <button className="dislike"><i className="fa-regular fa-thumbs-down"></i></button>
-
+                    <button className="like">
+                      <i className="fa-regular fa-thumbs-up"></i>
+                    </button>
+                    <button className="dislike">
+                      <i className="fa-regular fa-thumbs-down"></i>
+                    </button>
                   </div>
                   <div className="reviewInfo my-3">
                     <strong className="mt-3">Anonymous</strong>
@@ -244,6 +247,7 @@ function ReviewDialog(props) {
   const [review, setReview] = useState("");
   const [tags, setTags] = useState("");
   const history = useNavigate();
+  const [count, setCount] = useState(0);
 
   const fetchClub2 = async () => {
     const { data } = await axios.get(
@@ -267,6 +271,7 @@ function ReviewDialog(props) {
   };
   const handleReviewChange = (e) => {
     setReview(e.target.value);
+    setCount(e.target.value.length);
   };
   const handleTagChange = (e) => {
     setTags(e.target.value);
@@ -283,6 +288,7 @@ function ReviewDialog(props) {
     setStars(0);
     setReview("");
     setTags("");
+    setCount(0);
     setReviewOpen(false);
     console.log(club[1]);
     window.location.reload();
@@ -303,35 +309,73 @@ function ReviewDialog(props) {
           <i className="fa fa-times" aria-hidden="true"></i>
         </button>
         <h1>{club[0]}</h1>
-        <form>
+        <form className="reviewModal mb-3">
           <section className="form">
             <label for="leaveReview">Rate this club:</label>
             <fieldset value={stars} onChange={handleStarsChange}>
               <span class="star-cb-group">
-                <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
-                <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
-                <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
-                <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
-                <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-                <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                <input type="radio" id="rating-5" name="rating" value="5" />
+                <label for="rating-5">5</label>
+                <input type="radio" id="rating-4" name="rating" value="4" />
+                <label for="rating-4">4</label>
+                <input type="radio" id="rating-3" name="rating" value="3" />
+                <label for="rating-3">3</label>
+                <input type="radio" id="rating-2" name="rating" value="2" />
+                <label for="rating-2">2</label>
+                <input type="radio" id="rating-1" name="rating" value="1" />
+                <label for="rating-1">1</label>
+                <input
+                  type="radio"
+                  id="rating-0"
+                  name="rating"
+                  value="0"
+                  class="star-cb-clear"
+                />
+                <label for="rating-0">0</label>
               </span>
             </fieldset>
-            <label for="leaveReview">Select a descriptive tag: <span className="text-danger">*</span></label>
-            <fieldset value={tags} onChange={handleTagChange} className="tagsReviewFieldset">
+            <label for="leaveReview">
+              Select a descriptive tag: <span className="text-danger">*</span>
+            </label>
+            <fieldset
+              value={tags}
+              onChange={handleTagChange}
+              className="tagsReviewFieldset"
+            >
               <span class="tagsReview">
-                <input type="radio" id="tags-0" name="rating" value="Friendly" />
+                <input
+                  type="radio"
+                  id="tags-0"
+                  name="rating"
+                  value="Friendly"
+                />
                 <label for="tags-0">
                   <div className="btn btn-secondary">Friendly</div>
                 </label>
-                <input type="radio" id="tags-1" name="rating" value="Networking" />
+                <input
+                  type="radio"
+                  id="tags-1"
+                  name="rating"
+                  value="Networking"
+                />
                 <label for="tags-1">
                   <div className="btn btn-secondary">Networking</div>
                 </label>
-                <input type="radio" id="tags-2" name="rating" value="Project Focused" />
+                <input
+                  type="radio"
+                  id="tags-2"
+                  name="rating"
+                  value="Project Focused"
+                />
                 <label for="tags-2">
                   <div className="btn btn-secondary">Project Focused</div>
                 </label>
-                <input type="radio" id="tags-3" name="rating" value="Laid Back" />
+                <input
+                  type="radio"
+                  id="tags-3"
+                  name="rating"
+                  value="Laid Back"
+                />
                 <label for="tags-3">
                   <div className="btn btn-secondary">Laid Back</div>
                 </label>
@@ -339,22 +383,34 @@ function ReviewDialog(props) {
                 <label for="tags-4">
                   <div className="btn btn-secondary">Active</div>
                 </label>
-                <input type="radio" id="tags-5" name="rating" value="Lots of Work" />
+                <input
+                  type="radio"
+                  id="tags-5"
+                  name="rating"
+                  value="Lots of Work"
+                />
                 <label for="tags-5">
                   <div className="btn btn-secondary">Lots of Work</div>
                 </label>
               </span>
             </fieldset>
-            <label for="leaveReview">Write a review: <span className="text-danger">*</span></label>
+            <label for="leaveReview" className="mt-2">
+              Write a review: <span className="text-danger">*</span>
+            </label>
             <textarea
               className="leaveReviewText"
               id="textArea"
               rows="4"
               maxLength="250"
               value={review}
+              placeholder="Leave your thoughts"
+              style={{ textIndent: 10 }}
               onChange={handleReviewChange}
             ></textarea>
-            <button onClick={postDB}>submit</button>
+            <p className="text-end mt-2 mb-0 text-black-50 counter">{count} / 250</p>
+            <button onClick={postDB} className="btn btn-primary">
+              submit
+            </button>
           </section>
         </form>
       </div>

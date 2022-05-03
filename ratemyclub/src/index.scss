@@ -174,20 +174,25 @@ nav {
     text-decoration: underline;
   }
 }
-button.like{
+
+button.like {
   background: none;
   border-style: none;
 }
-button.dislike{
+
+button.dislike {
   background: none;
   border-style: none;
 }
-button.like:focus{
-  color:rgb(0, 165, 0);
+
+button.like:focus {
+  color: rgb(0, 165, 0);
 }
-button.dislike:focus{
-  color:red;
+
+button.dislike:focus {
+  color: red;
 }
+
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/belltower.png');
   width: 100%;
@@ -559,7 +564,11 @@ $checked-color: #FFD43D;
   font-size: 0;
 
   * {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+  }
+
+  label {
+    margin: 0 0.25rem !important;
   }
 
   /* flip the order so we can use the + and ~ combinators */
@@ -574,7 +583,7 @@ $checked-color: #FFD43D;
       display: inline-block;
       overflow: hidden;
       text-indent: 9999px;
-      width: 0.9em;
+      width: 2.25rem;
       white-space: nowrap;
       cursor: pointer;
 
@@ -582,7 +591,7 @@ $checked-color: #FFD43D;
         display: inline-block;
         text-indent: -9999px;
         content: $unchecked-star;
-        color: $unchecked-color;
+        color: $grey;
       }
     }
 
@@ -591,7 +600,6 @@ $checked-color: #FFD43D;
     &+label:hover:before {
       content: $checked-star;
       color: #FFD43D;
-      text-shadow: 0 0 1px #333;
     }
   }
 
@@ -608,7 +616,7 @@ $checked-color: #FFD43D;
 
   &:hover>input+label:before {
     content: $unchecked-star;
-    color: $unchecked-color;
+    color: $grey;
     text-shadow: none;
   }
 
@@ -616,51 +624,68 @@ $checked-color: #FFD43D;
   &:hover>input+label:hover:before {
     content: $checked-star;
     color: $checked-color;
-    text-shadow: 0 0 1px #333;
   }
 }
 
 .tagsReviewFieldset {
   display: block;
   width: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+  .btn {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+    padding: 0.4rem 1rem;
+  }
+
+  label {
+    margin: 0 0.25rem !important;
+  }
+}
+
+.reviewModal {
+  .counter{
+    margin-left: auto;
+    margin-right: 2rem;
+  }
+  button.btn {
+    margin: 1rem auto 1rem 2rem !important;
+  }
 }
 
 .tagsReview {
   /*display: none;*/
   width: 100%;
-  
+
 
   * {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 
   input[type="radio"] {
     display: none;
 
-    &:not(:disabled) ~ label {
+    &:not(:disabled)~label {
       cursor: pointer;
     }
   }
 
-  input[type="radio"]:checked + label {
+  input[type="radio"]:checked+label {
     .btn {
       background-color: #8EBAE5;
       color: white;
     }
-    
+
   }
 }
 
 .leaveReviewText {
-  width: 80%;
   display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-
+  margin-top: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  border-color: $grey;
 }
 
 @keyframes type {
