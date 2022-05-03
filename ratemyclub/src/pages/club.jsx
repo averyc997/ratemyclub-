@@ -103,30 +103,30 @@ const Club = () => {
   const data = [
     {
       name: "Awesome",
-      Ratings: starArr[4],
+      Count: starArr[4],
     },
     {
       name: "Great",
-      Ratings: starArr[3],
+      Count: starArr[3],
     },
     {
       name: "Good",
-      Ratings: starArr[2],
+      Count: starArr[2],
     },
     {
       name: "Okay",
-      Ratings: starArr[1],
+      Count: starArr[1],
     },
     {
       name: "Needs work",
-      Ratings: starArr[0],
+      Count: starArr[0],
     },
   ];
 
   return (
     <>
       <main id="club" className="py-4">
-        <section className="container">
+        <section className="container mt-2">
           <div className="row club">
             <div className="col-lg-7 col-md-12 clubber">
               <div className="clubTop">
@@ -163,8 +163,10 @@ const Club = () => {
                 </a>
               </div>
               <div className="d-flex my-3 gap-2">
-                <div className="tags btn-secondary btn">tag</div>
-                <div className="tags btn-secondary btn">tag</div>
+              {review.length > 0 &&
+              review.map((element) => (
+                <div className="tags btn-secondary btn">{element[2]}</div>
+              ))}
               </div>
               <div className="clubDescr">
                 <p>{club[1]}</p>
@@ -200,8 +202,8 @@ const Club = () => {
                     fontWeight="bold"
                   />
                   <Tooltip />
-                  <Bar dataKey="Ratings" barSize={20} fill="#FFD43D">
-                    <LabelList dataKey="Ratings" position="right" />
+                  <Bar dataKey="Count" barSize={20} fill="#FFD43D">
+                    <LabelList dataKey="Count" position="right" />
                   </Bar>
                 </ComposedChart>
               </ResponsiveContainer>
@@ -267,13 +269,17 @@ function ReviewDialog(props) {
   }, []);
 
   const handleStarsChange = (e) => {
-    setStars(e.target.value);
+    e.preventDefault();
+
+    setStars(parseInt(e.target.value));
   };
   const handleReviewChange = (e) => {
     setReview(e.target.value);
     setCount(e.target.value.length);
   };
   const handleTagChange = (e) => {
+    e.preventDefault();
+
     setTags(e.target.value);
   };
 
@@ -312,7 +318,7 @@ function ReviewDialog(props) {
         <form className="reviewModal mb-3">
           <section className="form">
             <label for="leaveReview">Rate this club:</label>
-            <fieldset value={stars} onChange={handleStarsChange}>
+            <fieldset value={stars} onChange={handleStarsChange} id="group1">
               <span class="star-cb-group">
                 <input type="radio" id="rating-5" name="rating" value="5" />
                 <label for="rating-5">5</label>
@@ -339,6 +345,7 @@ function ReviewDialog(props) {
             </label>
             <fieldset
               value={tags}
+              id="group2"
               onChange={handleTagChange}
               className="tagsReviewFieldset"
             >
@@ -346,7 +353,7 @@ function ReviewDialog(props) {
                 <input
                   type="radio"
                   id="tags-0"
-                  name="rating"
+                  name="tag"
                   value="Friendly"
                 />
                 <label for="tags-0">
@@ -355,7 +362,7 @@ function ReviewDialog(props) {
                 <input
                   type="radio"
                   id="tags-1"
-                  name="rating"
+                  name="tag"
                   value="Networking"
                 />
                 <label for="tags-1">
@@ -364,7 +371,7 @@ function ReviewDialog(props) {
                 <input
                   type="radio"
                   id="tags-2"
-                  name="rating"
+                  name="tag"
                   value="Project Focused"
                 />
                 <label for="tags-2">
@@ -373,26 +380,36 @@ function ReviewDialog(props) {
                 <input
                   type="radio"
                   id="tags-3"
-                  name="rating"
+                  name="tag"
                   value="Laid Back"
                 />
                 <label for="tags-3">
                   <div className="btn btn-secondary">Laid Back</div>
                 </label>
-                <input type="radio" id="tags-4" name="rating" value="Active" />
+                <input type="radio" id="tags-4" name="tag" value="Active" />
                 <label for="tags-4">
                   <div className="btn btn-secondary">Active</div>
                 </label>
                 <input
                   type="radio"
                   id="tags-5"
-                  name="rating"
+                  name="tag"
                   value="Lots of Work"
                 />
                 <label for="tags-5">
                   <div className="btn btn-secondary">Lots of Work</div>
                 </label>
+                <input
+                  type="radio"
+                  id="tags-6"
+                  name="tag"
+                  value="Inactive"
+                />
+                <label for="tags-6">
+                  <div className="btn btn-secondary">Inactive</div>
+                </label>
               </span>
+              
             </fieldset>
             <label for="leaveReview" className="mt-2">
               Write a review: <span className="text-danger">*</span>
@@ -407,7 +424,9 @@ function ReviewDialog(props) {
               style={{ textIndent: 10 }}
               onChange={handleReviewChange}
             ></textarea>
-            <p className="text-end mt-2 mb-0 text-black-50 counter">{count} / 250</p>
+            <p className="text-end mt-2 mb-0 text-black-50 counter">
+              {count} / 250
+            </p>
             <button onClick={postDB} className="btn btn-primary">
               submit
             </button>

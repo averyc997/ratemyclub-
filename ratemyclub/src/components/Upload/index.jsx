@@ -55,6 +55,7 @@ function Upload() {
           type="file"
           className="input form-control"
           onChange={changeStyle2}
+          accept="image/*"
         />
         <div className="d-flex align-items-center mt-2">
           <p className="mb-0 fw-bold">
