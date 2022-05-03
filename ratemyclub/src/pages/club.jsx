@@ -213,8 +213,9 @@ const Club = () => {
               review.map((element) => (
                 <div className="categoryList my-3">
                   <div className="votes px-5">
-                    <i className="fa-regular fa-thumbs-up"></i>
-                    <i className="fa-regular fa-thumbs-down"></i>
+                    <button className="like"><i className="fa-regular fa-thumbs-up"></i></button>
+                    <button className="dislike"><i className="fa-regular fa-thumbs-down"></i></button>
+
                   </div>
                   <div className="reviewInfo my-3">
                     <strong className="mt-3">Anonymous</strong>
@@ -312,7 +313,7 @@ function ReviewDialog(props) {
                 <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
                 <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
                 <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-                <input type="radio" id="rating-0" name="rating" value="0"  class="star-cb-clear" /><label for="rating-0">0</label>
+                <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
               </span>
             </fieldset>
             <label for="leaveReview">Tag</label>
