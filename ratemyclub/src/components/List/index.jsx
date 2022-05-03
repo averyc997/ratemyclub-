@@ -14,33 +14,46 @@ const List = () => {
       `https://ratemyclubunc-default-rtdb.firebaseio.com/clubs.json`
     );
     let categoryData = filterCategory(data, id);
-
-    const arr = categoryData.map((element) => {
-        return [element.name, element.description, element.link];
-      }).sort(function (a, b) {
+    const arr = categoryData
+      .map((element) => {
+        return [
+          element.name,
+          element.description,
+          element.link,
+          element.reviews,
+        ];
+      })
+      .sort(function (a, b) {
         var nameA = a[0].toLowerCase(),
-        nameB = b[0].toLowerCase();
+          nameB = b[0].toLowerCase();
         if (nameA < nameB)
-        //sort string ascending
-        return -1;
+          //sort string ascending
+          return -1;
         if (nameA > nameB) return 1;
         return 0; //default return value (no sorting)
-    });
-    let reversed = categoryData.map((element) => {
-        return [element.name, element.description, element.link];
-      }).sort(function (a, b) {
+      });
+    let reversed = categoryData
+      .map((element) => {
+        return [
+          element.name,
+          element.description,
+          element.link,
+          element.reviews,
+        ];
+      })
+      .sort(function (a, b) {
         var nameA = a[0].toLowerCase(),
-        nameB = b[0].toLowerCase();
+          nameB = b[0].toLowerCase();
         if (nameA < nameB)
-        //sort string ascending
-        return 1;
+          //sort string ascending
+          return 1;
         if (nameA > nameB) return -1;
         return 0; //default return value (no sorting)
-    });
+      });
     setCategory(arr);
     setcategoryReverse(reversed);
   };
-
+  //let reviewTotal = average(clubData.reviews);
   useEffect(() => {
     fetchCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,15 +82,11 @@ const List = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li onClick={()=>setOrder(true)}>
-                  <a className="dropdown-item">
-                    A-Z
-                  </a>
+                <li onClick={() => setOrder(true)}>
+                  <a className="dropdown-item">A-Z</a>
                 </li>
-                <li onClick={()=>setOrder(false)}>
-                  <a className="dropdown-item">
-                    Z-A
-                  </a>
+                <li onClick={() => setOrder(false)}>
+                  <a className="dropdown-item">Z-A</a>
                 </li>
               </ul>
             </div>
@@ -89,14 +98,33 @@ const List = () => {
             </button>
           </div>
           {(order ? category : categoryReverse).map((element) => (
-            <div className="categoryList my-4">
-              <h3>{element[0]}</h3> {element[1]}{" "}
-              <button
-                className="btn btn-primary my-3"
-                onClick={() => history(`/club/${element[2]}`)}
-              >
-                Learn More
-              </button>
+            <div className="categoryList mt-4 mb-2">
+              <div className="rating">
+                <h3>
+                  <span className="color">
+                    {!isNaN(average(element[3]))
+                      ? `${average(element[3])}`
+                      : ""}
+                  </span>
+                  <span className="no-reviews">
+                  {isNaN(average(element[3]))
+                    ? "0 ratings"
+                    : ""}
+                    </span>
+                  {!isNaN(average(element[3])) ? " / 5" : ""}
+                </h3>
+                <p>{count(element[3])&& count(element[3]) > 0 ? `${count(element[3])} ratings` : ""}</p>
+              </div>
+              <div className="info">
+                <h3>{element[0]}</h3>
+                <p>{element[1]}</p>
+                <button
+                  className="btn btn-primary my-1"
+                  onClick={() => history(`/club/${element[2]}`)}
+                >
+                  Learn More
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -104,7 +132,29 @@ const List = () => {
     </>
   );
 };
-
+const average = (review) => {
+  if (review == null) {
+    return "No reviews yet :/";
+  }
+  let i = 0;
+  let count = 0;
+  for (let j = 0; j <= review.length - 1; j++) {
+    i += review[j].stars;
+    count++;
+  }
+  let ratio = i / count;
+  return (Math.round(ratio * 10.0) / 10.0).toFixed(1);
+};
+const count = (review) => {
+  let count = 0;
+  if (review == null) {
+    return "0";
+  }
+  for (let i = 0; i <= review.length - 1; i++) {
+    count++;
+  }
+  return count;
+};
 const filterCategory = (arr, searchKey) => {
   return arr.filter((obj) =>
     Object.keys(obj).some((key) => obj[key].includes(searchKey))

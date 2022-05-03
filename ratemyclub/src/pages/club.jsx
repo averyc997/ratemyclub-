@@ -122,7 +122,6 @@ const Club = () => {
       Count: starArr[0],
     },
   ];
-
   return (
     <>
       <main id="club" className="py-4">
@@ -164,8 +163,10 @@ const Club = () => {
               </div>
               <div className="d-flex my-3 gap-2">
               {review.length > 0 &&
-              review.map((element) => (
-                <div className="tags btn-secondary btn">{element[2]}</div>
+              Array.from(new Set(review.map((element) => (
+                element[2]
+              )))).map((element) => (
+                <div className="tags btn-secondary btn">{element}</div>
               ))}
               </div>
               <div className="clubDescr">
@@ -175,7 +176,7 @@ const Club = () => {
                 className="rateClub btn btn-primary mb-4"
                 onClick={handleReview}
               >
-                Rate this club!!!!!
+                Rate this club!
               </button>
             </div>
             <div className="col-lg-5 col-md-12 histogram">
@@ -222,7 +223,7 @@ const Club = () => {
                       <i className="fa-regular fa-thumbs-down"></i>
                     </button>
                   </div>
-                  <div className="reviewInfo my-3">
+                  <div className="reviewInfo my-3 pe-4">
                     <strong className="mt-3">Anonymous</strong>
                     <p className="stars">{"★".repeat(element[1])}</p>
                     <p>{element[0]}</p>
@@ -372,10 +373,10 @@ function ReviewDialog(props) {
                   type="radio"
                   id="tags-2"
                   name="tag"
-                  value="Project Focused"
+                  value="Fun"
                 />
                 <label for="tags-2">
-                  <div className="btn btn-secondary">Project Focused</div>
+                  <div className="btn btn-secondary">Fun</div>
                 </label>
                 <input
                   type="radio"
@@ -408,6 +409,15 @@ function ReviewDialog(props) {
                 <label for="tags-6">
                   <div className="btn btn-secondary">Inactive</div>
                 </label>
+                <input
+                  type="radio"
+                  id="tags-7"
+                  name="tag"
+                  value="Project Focused"
+                />
+                <label for="tags-7">
+                  <div className="btn btn-secondary">Project Focused</div>
+                </label>
               </span>
               
             </fieldset>
@@ -421,7 +431,7 @@ function ReviewDialog(props) {
               maxLength="250"
               value={review}
               placeholder="Leave your thoughts"
-              style={{ textIndent: 10 }}
+              style={{ padding: 10 }}
               onChange={handleReviewChange}
             ></textarea>
             <p className="text-end mt-2 mb-0 text-black-50 counter">
