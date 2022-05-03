@@ -620,6 +620,48 @@ $checked-color: #FFD43D;
   }
 }
 
+.tagsReviewFieldset {
+  display: block;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tagsReview {
+  /*display: none;*/
+  width: 100%;
+  
+
+  * {
+    font-size: 0.75rem;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:not(:disabled) ~ label {
+      cursor: pointer;
+    }
+  }
+
+  input[type="radio"]:checked + label {
+    .btn {
+      background-color: #8EBAE5;
+      color: white;
+    }
+    
+  }
+}
+
+.leaveReviewText {
+  width: 80%;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
 
 @keyframes type {
   from {

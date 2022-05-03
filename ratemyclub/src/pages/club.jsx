@@ -316,24 +316,44 @@ function ReviewDialog(props) {
                 <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
               </span>
             </fieldset>
-            <label for="leaveReview">Tag</label>
-            <input
-              type=""
-              name=""
-              id=""
-              placeholder=""
-              value={tags}
-              onChange={handleTagChange}
-            />
-            <label for="leaveReview">Write a review</label>
-            <input
-              type=""
-              name=""
-              id=""
-              placeholder=""
+            <label for="leaveReview">Select a descriptive tag: <span className="text-danger">*</span></label>
+            <fieldset value={tags} onChange={handleTagChange} className="tagsReviewFieldset">
+              <span class="tagsReview">
+                <input type="radio" id="tags-0" name="rating" value="Friendly" />
+                <label for="tags-0">
+                  <div className="btn btn-secondary">Friendly</div>
+                </label>
+                <input type="radio" id="tags-1" name="rating" value="Networking" />
+                <label for="tags-1">
+                  <div className="btn btn-secondary">Networking</div>
+                </label>
+                <input type="radio" id="tags-2" name="rating" value="Project Focused" />
+                <label for="tags-2">
+                  <div className="btn btn-secondary">Project Focused</div>
+                </label>
+                <input type="radio" id="tags-3" name="rating" value="Laid Back" />
+                <label for="tags-3">
+                  <div className="btn btn-secondary">Laid Back</div>
+                </label>
+                <input type="radio" id="tags-4" name="rating" value="Active" />
+                <label for="tags-4">
+                  <div className="btn btn-secondary">Active</div>
+                </label>
+                <input type="radio" id="tags-5" name="rating" value="Lots of Work" />
+                <label for="tags-5">
+                  <div className="btn btn-secondary">Lots of Work</div>
+                </label>
+              </span>
+            </fieldset>
+            <label for="leaveReview">Write a review: <span className="text-danger">*</span></label>
+            <textarea
+              className="leaveReviewText"
+              id="textArea"
+              rows="4"
+              maxLength="250"
               value={review}
               onChange={handleReviewChange}
-            />
+            ></textarea>
             <button onClick={postDB}>submit</button>
           </section>
         </form>
